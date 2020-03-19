@@ -123,6 +123,9 @@ glm::quat fromAxisAngle(glm::vec3 axis, float angle)  /*TODO:: Complete this fun
 /////////////////////////////////////////////////////////////////////////////////////////////
 void QuatCamera::rotate(const float yaw, const float pitch)  /*TODO:: Complete this function given yaw and pitch.*/
 {
+	_orientation.y += -yaw;
+	_orientation.x += -pitch;
+
 	/*TODO:: Complete this function*/ 
 	updateView();
 
@@ -183,6 +186,7 @@ void QuatCamera::updateView()
 /////////////////////////////////////////////////////////////////////////////////////////////
 void QuatCamera::roll(const float z)  /*TODO:: Complete this function*/
 {
+	_orientation.z += -z;
 
 	/*TODO:: Complete this function*/ 
 	updateView();

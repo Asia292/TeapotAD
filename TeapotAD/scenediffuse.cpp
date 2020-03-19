@@ -71,13 +71,18 @@ void SceneDiffuse::setLightParams(QuatCamera camera)
 	vec3 worldLight = vec3(10.0f,10.0f,10.0f);
    
 	//diffuse
-	prog.setUniform("vars.Ld", 0.9f, 0.9f, 0.9f);//what elements does Ld have?
+	prog.setUniform("dVars.Ld", 0.9f, 0.9f, 0.9f);//what elements does Ld have?
 	//ambiant
-	prog.setUniform("vars.La", 0.3f, 0.3f, 0.3f);
+	prog.setUniform("aVars.La", 0.3f, 0.3f, 0.3f);
 	//specular
 	prog.setUniform("view", camera.view());
-	prog.setUniform("vars.Ls", 0.3f, 0.3f, 0.3f);
+	prog.setUniform("sVars.Ls", 0.3f, 0.3f, 0.3f);
 
+	//spotlight
+	prog.setUniform("spotlight.pos", 0.0f, 5.0f, -20.0f);
+	prog.setUniform("spotlight.dir", 0.0f, -1.0f, 0.0f);
+	prog.setUniform("spotlight.cutOff", glm::cos(glm::radians(45.f)));
+	prog.setUniform("spotlight.SpotLight", true);
 
 	prog.setUniform("LightPosition", worldLight );
 }
@@ -97,11 +102,11 @@ void SceneDiffuse::render(QuatCamera camera)
     setMatrices(camera);
 	//Set the plane's material properties in the shader and render
 	//diffuse
-	prog.setUniform("vars.Kd", 0.51f, 1.0f, 0.49f); // What elements does Kd have?
+	prog.setUniform("dVars.Kd", 0.51f, 1.0f, 0.49f); // What elements does Kd have?
 	//ambniabnt
-	prog.setUniform("vars.Ka", 0.51f, 1.0f, 0.49f);
+	prog.setUniform("aVars.Ka", 0.51f, 1.0f, 0.49f);
 	//speculat
-	prog.setUniform("vars.Ks", 0.1f, 0.1f, 0.1f);
+	prog.setUniform("sVars.Ks", 0.1f, 0.1f, 0.1f);
 	
 	plane->render();// what does it do?
 
@@ -112,11 +117,11 @@ void SceneDiffuse::render(QuatCamera camera)
 	 setMatrices(camera);
 	 //Set the Teapot material properties in the shader and render
 	 //diffuse
-	 prog.setUniform("vars.Kd", 0.46f, 0.29f, 0.0f); // What elements does Kd have?
+	 prog.setUniform("dVars.Kd", 0.46f, 0.29f, 0.0f); // What elements does Kd have?
 	 //ambiant
-	 prog.setUniform("vars.Ka", 0.46f, 0.29f, 0.0f);
+	 prog.setUniform("aVars.Ka", 0.46f, 0.29f, 0.0f);
 	 //specualt
-	 prog.setUniform("vars.Ks", 0.29f, 0.29f, 0.29f);
+	 prog.setUniform("sVars.Ks", 0.29f, 0.29f, 0.29f);
 	 
 	 teapot->render(); // what does it do?
 	
