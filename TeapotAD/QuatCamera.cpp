@@ -126,7 +126,6 @@ void QuatCamera::rotate(const float yaw, const float pitch)  /*TODO:: Complete t
 	_orientation.y += -yaw;
 	_orientation.x += -pitch;
 
-	/*TODO:: Complete this function*/ 
 	updateView();
 
 }
@@ -188,7 +187,6 @@ void QuatCamera::roll(const float z)  /*TODO:: Complete this function*/
 {
 	_orientation.z += -z;
 
-	/*TODO:: Complete this function*/ 
 	updateView();
 
 }

@@ -30,6 +30,7 @@ private:
 
     mat4 model; //Model matrix
 
+	bool spotLight = false;		//added to control spotlight
 
     void setMatrices(QuatCamera camera); //Set the camera matrices
 
@@ -47,6 +48,8 @@ public:
     void render(QuatCamera camera);	//Render the scene
 
     void resize(QuatCamera camera, int, int); //Resize
+
+	void sptlight();	//added to allow spotlight to be turned on/off
 };
 
 }

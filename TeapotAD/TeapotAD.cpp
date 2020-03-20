@@ -18,6 +18,7 @@
 
 
 #include "QuatCamera.h"
+#include "scenediffuse.h"
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
@@ -35,6 +36,7 @@ Scene *scene;
 
 //The camera
 QuatCamera camera;
+SceneDiffuse spotlight;
 
 //To keep track of cursor location
 double lastCursorPositionX, lastCursorPositionY, cursorPositionX, cursorPositionY;
@@ -50,6 +52,8 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 			scene->animate(!(scene->animating()));
 	if (key == 'R' && action == GLFW_RELEASE)
 			camera.reset();
+	if (key == 'S' && action == GLFW_RELEASE)
+		spotlight.sptlight();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

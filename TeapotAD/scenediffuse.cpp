@@ -53,6 +53,14 @@ void SceneDiffuse::initScene(QuatCamera camera)
 
 
 }
+//// ALLOWS SWITCHING ON/OFF OF SPOTLIGHT ////
+void SceneDiffuse::sptlight()
+{
+	spotLight = !spotLight;		// sets spotlight bool to its opposite
+	prog.setUniform("spotlight.SpotLight", spotLight);		// assigns variable of spotlight bool to the one that controls if statements
+
+	std::cout << spotLight << std::endl;		// debugging - does bool change
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Update not used at present
@@ -71,20 +79,20 @@ void SceneDiffuse::setLightParams(QuatCamera camera)
 	vec3 worldLight = vec3(10.0f,10.0f,10.0f);
    
 	//diffuse
-	prog.setUniform("dVars.Ld", 0.9f, 0.9f, 0.9f);//what elements does Ld have?
+	prog.setUniform("dVars.Ld", 0.9f, 0.9f, 0.9f);		// diffuse light intensity
 	//ambiant
-	prog.setUniform("aVars.La", 0.3f, 0.3f, 0.3f);
+	prog.setUniform("aVars.La", 0.3f, 0.3f, 0.3f);		// ambiant light intensity
 	//specular
 	prog.setUniform("view", camera.view());
-	prog.setUniform("sVars.Ls", 0.3f, 0.3f, 0.3f);
+	prog.setUniform("sVars.Ls", 0.3f, 0.3f, 0.3f);		// specular light intensity
 
 	//spotlight
-	prog.setUniform("spotlight.pos", 0.0f, 5.0f, -20.0f);
-	prog.setUniform("spotlight.dir", 0.0f, -1.0f, 0.0f);
-	prog.setUniform("spotlight.cutOff", glm::cos(glm::radians(45.f)));
-	prog.setUniform("spotlight.SpotLight", true);
+	prog.setUniform("spotlight.pos", 0.0f, 5.0f, -20.0f);	// position of spotlight
+	prog.setUniform("spotlight.dir", 0.0f, -1.0f, 0.0f);	// direction of spotlight
+	prog.setUniform("spotlight.cutOff", glm::cos(glm::radians(15.f)));		// cut off angle for spotlight converted to radians
+	prog.setUniform("spotlight.SpotLight", false);		// sets spotlight default to off
 
-	prog.setUniform("LightPosition", worldLight );
+	prog.setUniform("LightPosition", worldLight );		// position of standard light
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,13 +110,13 @@ void SceneDiffuse::render(QuatCamera camera)
     setMatrices(camera);
 	//Set the plane's material properties in the shader and render
 	//diffuse
-	prog.setUniform("dVars.Kd", 0.51f, 1.0f, 0.49f); // What elements does Kd have?
+	prog.setUniform("dVars.Kd", 0.51f, 1.0f, 0.49f);		// diffuse plane reflection coefficent
 	//ambniabnt
-	prog.setUniform("aVars.Ka", 0.51f, 1.0f, 0.49f);
+	prog.setUniform("aVars.Ka", 0.51f, 1.0f, 0.49f);		// ambiant plane reflection coefficent
 	//speculat
-	prog.setUniform("sVars.Ks", 0.1f, 0.1f, 0.1f);
+	prog.setUniform("sVars.Ks", 0.1f, 0.1f, 0.1f);			// specular plane reflection coefficent
 	
-	plane->render();// what does it do?
+	plane->render();// renders the plane with defined variables
 
 
 
@@ -117,13 +125,13 @@ void SceneDiffuse::render(QuatCamera camera)
 	 setMatrices(camera);
 	 //Set the Teapot material properties in the shader and render
 	 //diffuse
-	 prog.setUniform("dVars.Kd", 0.46f, 0.29f, 0.0f); // What elements does Kd have?
+	 prog.setUniform("dVars.Kd", 0.46f, 0.29f, 0.0f);		// diffuse teapot reflection coefficent
 	 //ambiant
-	 prog.setUniform("aVars.Ka", 0.46f, 0.29f, 0.0f);
-	 //specualt
-	 prog.setUniform("sVars.Ks", 0.29f, 0.29f, 0.29f);
+	 prog.setUniform("aVars.Ka", 0.46f, 0.29f, 0.0f);		// ambiant teapot reflection coefficent
+	 //specular
+	 prog.setUniform("sVars.Ks", 0.29f, 0.29f, 0.29f);		// specular teapot reflection coefficent
 	 
-	 teapot->render(); // what does it do?
+	 teapot->render(); // renders the teapot with defined variables
 	
 }
 
